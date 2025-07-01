@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stormbreakers - We don't fear the storm, we break it</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --electric-blue: #00e6ff;
+            --storm-blue: #0099cc;
+            --dark-bg: #0a0a0a;
+            --card-bg: rgba(20, 20, 30, 0.8);
+            --lightning: #66d9ff;
+            --red-accent: #ff3366;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--dark-bg);
+            color: white;
+            font-family: 'Exo 2', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(45deg, #0a0a0a, #1a1a2e, #16213e, #0a0a0a);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+        }
+
+        .lightning-effect {
+            position: absolute;
+            width: 2px;
+            height: 100px;
+            background: linear-gradient(to bottom, transparent, var(--lightning), transparent);
+            animation: lightning 3s infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes lightning {
+            0%, 90%, 100% { opacity: 0; }
+            10%, 80% { opacity: 0.8; }
+        }
+
+        /* Header */
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: radial-gradient(circle at center, rgba(0, 230, 255, 0.1) 0%, transparent 70%);
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+        }
+
+        .team-logo {
+            width: 300px;
+            height: 300px;
+            margin-bottom: 2rem;
+            filter: drop-shadow(0 0 20px var(--electric-blue));
+            animation: pulse 2s infinite alternate;
+        }
+
+        .team-name {
+            font-family: 'Orbitron', monospace;
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--electric-blue), var(--lightning));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(0, 230, 255, 0.5);
+            margin-bottom: 1rem;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: var(--lightning);
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+
+        @keyframes glow {
+            0% { text-shadow: 0 0 30px rgba(0, 230, 255, 0.5); }
+            100% { text-shadow: 0 0 40px rgba(0, 230, 255, 0.8), 0 0 60px rgba(0, 230, 255, 0.4); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Section Styling */
+        .section {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--electric-blue);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--electric-blue), transparent);
+        }
+
+        .points-section {
+            background: rgba(0, 230, 255, 0.05);
+            padding: 1rem 0;
+            text-align: center;
+            font-size: 1.5rem;
+            color: var(--electric-blue);
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        /* Captain Cards */
+        .captain-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 2px solid var(--storm-blue);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .captain-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--electric-blue), var(--storm-blue), var(--electric-blue));
+            border-radius: 20px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .captain-card:hover::before {
+            opacity: 1;
+        }
+
+        .captain-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 230, 255, 0.3);
+        }
+
+        .captain-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 3px solid var(--electric-blue);
+            margin-bottom: 1rem;
+            object-fit: cover;
+        }
+
+        /* Member Cards */
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .member-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid var(--storm-blue);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .member-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 230, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .member-card:hover::before {
+            left: 100%;
+        }
+
+        .member-card:hover {
+            transform: translateY(-8px) rotateY(5deg);
+            box-shadow: 0 15px 30px rgba(0, 230, 255, 0.2);
+            border-color: var(--electric-blue);
+        }
+
+        .member-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--electric-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .member-specialty {
+            color: var(--lightning);
+            font-style: italic;
+        }
+
+        /* Special Egg Member Styling */
+        .special-member {
+            background: linear-gradient(135deg, var(--card-bg), rgba(255, 215, 0, 0.1));
+            border: 2px solid #FFD700;
+            animation: eggGlow 3s ease-in-out infinite alternate;
+        }
+
+        .special-member:hover {
+            transform: translateY(-8px) rotateY(5deg) scale(1.05);
+            box-shadow: 0 20px 40px rgba(255, 215, 0, 0.3);
+        }
+
+        .egg-img {
+            width: 100px;
+            height: 120px;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700);
+            border: 3px solid #FFD700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            animation: eggBounce 2s ease-in-out infinite;
+        }
+
+        @keyframes eggGlow {
+            0% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.3); }
+            100% { box-shadow: 0 0 30px rgba(255, 215, 0, 0.6), 0 0 40px rgba(255, 215, 0, 0.2); }
+        }
+
+        @keyframes eggBounce {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Different & Alike Sections */
+        .comparison-section {
+            background: rgba(0, 230, 255, 0.05);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 3rem 0;
+            position: relative;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .comparison-item {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--electric-blue);
+            transition: all 0.3s ease;
+            animation: slideInLeft 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        .comparison-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 20px rgba(0, 230, 255, 0.2);
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        #egg-reveal {
+            margin-top: 60px;
+            text-align: center;
+            padding: 4rem 1rem;
+        }
+
+        .egg-photo {
+            width: 200px;
+            height: 250px;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            margin: 0 auto;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+            border: 4px solid #FFD700;
+        }
+
+        /* 👇 Group photo section */
+        #group-photo-section {
+            background: rgba(0, 230, 255, 0.03);
+            text-align: center;
+            padding: 4rem 1rem;
+        }
+
+        .group-photo {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            border: 3px solid var(--storm-blue);
+            box-shadow: 0 10px 20px rgba(0, 230, 255, 0.3);
+        }
+
+        /* Instagram Section */
+        .instagram-section {
+            text-align: center;
+            padding: 3rem;
+            background: linear-gradient(135deg, rgba(0, 230, 255, 0.1), rgba(16, 33, 62, 0.1));
+            border-radius: 20px;
+            margin: 3rem 0;
+        }
+
+        .instagram-btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #E4405F, #FF6B6B);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .instagram-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(228, 64, 95, 0.3);
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .team-name {
+                font-size: 2.5rem;
+            }
+            
+            .team-logo {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .tagline {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .captain-card {
+                text-align: center;
+            }
+            
+            .members-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scroll Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(10, 10, 10, 0.9) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--storm-blue);
+        }
+
+        .navbar-brand, .nav-link {
+            color: var(--electric-blue) !important;
+            font-weight: 600;
+        }
+
+        .nav-link:hover {
+            color: var(--lightning) !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="points-section">Current Points: 18105</div>
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+    
+    <!-- Lightning Effects -->
+    <div class="lightning-effect" style="left: 10%; animation-delay: 0s;"></div>
+    <div class="lightning-effect" style="left: 30%; animation-delay: 1s;"></div>
+    <div class="lightning-effect" style="left: 60%; animation-delay: 2s;"></div>
+    <div class="lightning-effect" style="left: 80%; animation-delay: 0.5s;"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#home">STORMBREAKERS</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#captains">Captains</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#members">Members</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#photos">Photos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#social">Social</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="hero-content">
+            <!-- 👇 Replace with your actual logo image path -->
+            <img src="logo.jpg" alt="Stormbreakers Logo" class="team-logo">
+            <h1 class="team-name">STORMBREAKERS</h1>
+            <p class="tagline">We don't fear the storm, we break it</p>
+        </div>
+    </section>
+
+    <!-- Captains Section -->
+    <section id="captains" class="section">
+    <div class="container">
+        <h2 class="section-title fade-in">Meet Your Captains</h2>
+        <div class="row">
+            <!-- Captain: Nikhil Krishna -->
+            <div class="col-lg-6">
+                <div class="captain-card fade-in">
+                    <div class="text-center">
+                        <!-- Captain Image -->
+                        <img src="nikhil-1.jpg" alt="Nikhil Krishna R D" class="captain-img mx-auto">
+                        <h3 class="mt-3" style="color: var(--electric-blue);">Nikhil Krishna R D</h3>
+                        <h5 style="color: var(--lightning);">Captain</h5>
+                        <p class="badge bg-primary">MSc Computer Science</p>
+                        <p class="mt-3">
+                            I'm Nikhil Krishna R D, currently pursuing my MSc in Computer Science (Data Analytics). I enjoy building websites and exploring tech, and I'm also a trained singer. Outside of academics, I love balancing my interest in coding with my passion for football, cinema, and music. I am the captain of the team Stormbreakers, and I do my level best in making my team to be the champion.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vice Captain: Anaswara Prasobh -->
+            <div class="col-lg-6">
+                <div class="captain-card fade-in">
+                    <div class="text-center">
+                        <!-- Vice Captain Image -->
+                        <img src="anaswara.jpg" alt="Anaswara Prasobh" class="captain-img mx-auto">
+                        <h3 class="mt-3" style="color: var(--electric-blue);">Anaswara Prasobh</h3>
+                        <h5 style="color: var(--lightning);">Vice Captain</h5>
+                        <p class="badge bg-primary">MCA</p>
+                        <p class="mt-3">
+                            My name is Anaswara Prasobh, I am doing MCA under Rajagiri College of Social Sciences. I am 21 years of age, born on 20th May 2004. My interest and talent lies in arts like drawing, painting and sketching. Some free time hobbies include reading books and listening to music. I am the vice captain of the mPOWER team, Stormbreakers. I am a team player and love to help my group shine!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Members Section -->
+    <section id="members" class="section">
+        <div class="container">
+            <h2 class="section-title fade-in">Storm Warriors</h2>
+            <div class="members-grid fade-in">
+                <div class="member-card">
+                    <h4 class="member-name">Sreerag B</h4>
+                    <p class="member-specialty">School Captain (Boys)</p>
+                    <p>Natural leader with proven experience in student leadership and team coordination.</p>
+                </div>
+                <div class="member-card">
+                    <h4 class="member-name">Sreerag S</h4>
+                    <p class="member-specialty">NCC Cadet</p>
+                    <p>Disciplined and strategic thinker with military training and organizational skills.</p>
+                </div>
+                <div class="member-card">
+                    <h4 class="member-name">Devika</h4>
+                    <p class="member-specialty">Trained Dancer</p>
+                    <p>Creative spirit who brings grace, coordination, and artistic flair to the team.</p>
+                </div>
+                <div class="member-card">
+                    <h4 class="member-name">Novelia</h4>
+                    <p class="member-specialty">Professional Tutor</p>
+                    <p>Dedicated educator with exceptional communication and mentoring abilities.</p>
+                </div>
+                <div class="member-card">
+                    <h4 class="member-name">Joshua</h4>
+                    <p class="member-specialty">Keyboard Musician</p>
+                    <p>Musical talent who harmonizes creativity with technical precision in every project.</p>
+                </div>
+                <div class="member-card">
+                    <h4 class="member-name">Karthik</h4>
+                    <p class="member-specialty">Documentary Filmmaker</p>
+                    <p>Visual storyteller capturing moments and creating compelling narratives through film.</p>
+                </div>
+                <div class="member-card">
+                    <h4 class="member-name">Pooja Nair</h4>
+                    <p class="member-specialty">Cultural Explorer</p>
+                    <p>I am from Thrissur, Kerala. I completed by bachelor’s degree in computer application from St. Mary’s College, Thrissur. And I completed my schooling  from Udaipur, Rajasthan. My hobbies are reading books(fictional), watching series,listening to music and journaling.</p>
+                </div>
+                <div class="member-card special-member" onclick="document.getElementById('egg-reveal').scrollIntoView({ behavior: 'smooth' });">
+                    <div class="egg-container">
+                        <div class="egg-img bg-gradient d-flex align-items-center justify-content-center mx-auto mb-3">
+                            <i class="fas fa-egg fa-3x" style="color: #FFD700;"></i>
+                        </div>
+                        <h4 class="member-name">The Mystery Member</h4>
+                        <p class="member-specialty">The Egg 🥚</p>
+                        <p>Every great team has that one special member who adds the perfect touch of mystery and surprise!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="comparison-section fade-in">
+                        <h3 style="color: var(--electric-blue); margin-bottom: 2rem;">
+                            <i class="fas fa-star"></i> How We're Different
+                        </h3>
+                        <div class="comparison-grid">
+                            <div class="comparison-item" style="animation-delay: 0.1s;">
+                                <strong>Nikhil:</strong> Trained Singer
+                            </div>
+                            <div class="comparison-item" style="animation-delay: 0.2s;">
+                                <strong>Anaswara:</strong> International Experience
+                            </div>
+                            <div class="comparison-item" style="animation-delay: 0.3s;">
+                                <strong>Sreerag B:</strong> School Leadership
+                            </div>
+                            <div class="comparison-item" style="animation-delay: 0.4s;">
+                                <strong>Sreerag S:</strong> Military Training
+                            </div>
+                            <div class="comparison-item" style="animation-delay: 0.5s;">
+                                <strong>Devika:</strong> Dance Artistry
+                            </div>
+                            <div class="comparison-item" style="animation-delay: 0.6s;">
+                                <strong>Novelia:</strong> Educational Expertise
+                            </div>
+                            <div class="comparison-item" style="animation-delay: 0.7s;">
+                                <strong>Joshua:</strong> Musical Talent
+                            </div>
+                            <div class="comparison-item" style="animation-delay: 0.8s;">
+                                <strong>Karthik:</strong> Filmmaking Skills
+                            </div>
+                            <div class="comparison-item" style="animation-delay: 0.9s;">
+                                <strong>Pooja:</strong> Cultural Diversity
+                            </div>
+                            <div class="comparison-item special-diff" style="animation-delay: 1.0s;">
+                                <strong>The Egg:</strong> Ultimate Mystery! 🥚
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="comparison-section fade-in">
+                        <h3 style="color: var(--lightning); margin-bottom: 2rem;">
+                            <i class="fas fa-users"></i> How We're Alike
+                        </h3>
+                        <div class="comparison-grid">
+                            <div class="comparison-item" style="animation-delay: 0.2s;">
+                                <i class="fas fa-shield-virus"></i> Unaffected by COVID-19
+                            </div>
+                            <div class="comparison-item" style="animation-delay: 0.4s;">
+                                <i class="fas fa-id-card"></i> All have PAN Cards
+                            </div>
+                            <div class="comparison-item" style="animation-delay: 0.6s;">
+                                <i class="fas fa-laptop-code"></i> Computer Science Background
+                            </div>
+                            <div class="comparison-item" style="animation-delay: 0.8s;">
+                                <i class="fas fa-globe"></i> Website Development Experience
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ✅ New Group Photo Section -->
+    <section id="group-photo-section" class="section">
+        <div class="container">
+            <h2 class="section-title fade-in">Our Team Photo</h2>
+            <!-- 👇 Replace with actual team group photo path -->
+            <img src="group-2.jpg" alt="Group Photo" class="group-photo fade-in">
+        </div>
+    </section>
+
+    <!-- ✅ Egg Reveal Section -->
+    <section id="egg-reveal" class="section">
+        <div class="container">
+            <h2 class="section-title fade-in">🥚 The Egg Revealed</h2>
+            <!-- 👇 Replace with actual egg image -->
+            <img src="theegg.jpg" alt="Egg Member" class="egg-photo fade-in">
+            <p style="color: var(--lightning); margin-top: 1rem;">A surprise always worth waiting for!</p>
+        </div>
+    </section>
+
+    <!-- Social Section -->
+    <section id="social" class="section">
+    <div class="container">
+        <div class="instagram-section fade-in">
+            <h2 style="color: var(--electric-blue); margin-bottom: 2rem;">Follow Our Journey</h2>
+            <div class="row justify-content-center align-items-center">
+                
+                <!-- Instagram Feed Image Section -->
+                <div class="col-md-6 mb-4">
+                    <!-- Replace the src with your Instagram feed screenshot or embed image -->
+                    <div class="photo-item" style="overflow: hidden;">
+                        <img src="insta.png" alt="Instagram Feed Preview" class="img-fluid rounded" style="width: 100%; height: auto;">
+                    </div>
+                </div>
+
+                <!-- Instagram Follow Button -->
+                <div class="col-md-6 text-center">
+                    <p style="color: var(--lightning); font-size: 1.2rem;">
+                        Stay connected with our latest updates, behind-the-scenes, and wins!
+                    </p>
+                    <a href="https://www.instagram.com/stormbreakers__/" target="_blank" class="instagram-btn">
+                        <i class="fab fa-instagram"></i> Follow @stormbreakers_
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Scroll Animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Animate comparison items on scroll
+        const comparisonObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const items = entry.target.querySelectorAll('.comparison-item');
+                    items.forEach((item, index) => {
+                        setTimeout(() => {
+                            item.style.animationPlayState = 'running';
+                        }, index * 100);
+                    });
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.comparison-section').forEach(el => {
+            comparisonObserver.observe(el);
+        });
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Dynamic lightning effects
+        function createLightning() {
+            const lightning = document.createElement('div');
+            lightning.className = 'lightning-effect';
+            lightning.style.left = Math.random() * 100 + '%';
+            lightning.style.animationDelay = Math.random() * 2 + 's';
+            lightning.style.animationDuration = (Math.random() * 2 + 2) + 's';
+            document.querySelector('.animated-bg').appendChild(lightning);
+            
+            setTimeout(() => {
+                lightning.remove();
+            }, 5000);
+        }
+
+        // Create random lightning effects
+        setInterval(createLightning, 3000);
+
+        // Add special hover effect for the egg member
+        document.addEventListener('DOMContentLoaded', function() {
+            const eggCard = document.querySelector('.special-member');
+            if (eggCard) {
+                eggCard.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px) rotateY(5deg) scale(1.05)';
+                    this.style.background = 'linear-gradient(135deg, var(--card-bg), rgba(255, 215, 0, 0.2))';
+                });
+                
+                eggCard.addEventListener('mouseleave', function() {
+                    this.style.transform = '';
+                    this.style.background = 'linear-gradient(135deg, var(--card-bg), rgba(255, 215, 0, 0.1))';
+                });
+            }
+        });
+
+        // Enhanced member card interactions
+        document.querySelectorAll('.member-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.zIndex = '10';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.zIndex = '1';
+            });
+        });
+
+        // Parallax effect for background
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const rate = scrolled * -0.5;
+            document.querySelector('.animated-bg').style.transform = `translate3d(0, ${rate}px, 0)`;
+        });
+
+        // Add floating animation to lightning effects
+        document.querySelectorAll('.lightning-effect').forEach((lightning, index) => {
+            lightning.style.animationDelay = (index * 0.5) + 's';
+        });
+    </script>
+</body>
+</html>
