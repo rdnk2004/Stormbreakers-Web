@@ -62,6 +62,44 @@
             0%, 90%, 100% { opacity: 0; }
             10%, 80% { opacity: 0.8; }
         }
+        /* Points Display */
+        .points-section {
+             position: fixed;
+             top: 70px;
+             right: 50px;
+             background: rgba(0, 0, 0, 0.6); /* semi-transparent black */
+             border: 2px solid var(--electric-blue);
+             border-radius: 15px;
+             padding: 1rem 1.5rem;
+             z-index: 1000;
+             backdrop-filter: blur(12px);
+             box-shadow: 0 0 25px rgba(0, 230, 255, 0.25), inset 0 0 10px rgba(0, 0, 0, 0.4);
+             animation: pointsGlow 2s ease-in-out infinite alternate;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .points-number {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--electric-blue);
+            text-shadow: 0 0 5px rgba(0, 230, 255, 0.8);    
+            text-align: center;
+        }
+
+        .points-label {
+            font-size: 0.9rem;
+            color: var(--lightning);
+            opacity: 0.9;
+            text-align: center;
+            margin-top: 0.2rem;
+            letter-spacing: 1px;
+        }
+
+        @keyframes pointsGlow {
+            0% { box-shadow: 0 0 15px rgba(0, 230, 255, 0.3); }
+            100% { box-shadow: 0 0 25px rgba(0, 230, 255, 0.6); }
+        }
 
         /* Header */
         .hero-section {
@@ -450,7 +488,7 @@
     </style>
 </head>
 <body>
-    <div class="points-section">Current Points: 18105</div>
+    <div class="points-section">Current Points: 28882</div>
     <!-- Animated Background -->
     <div class="animated-bg"></div>
     
@@ -475,6 +513,7 @@
                     <li class="nav-item"><a class="nav-link" href="#about">About Us</a></li>
                     <li class="nav-item"><a class="nav-link" href="#photos">Photos</a></li>
                     <li class="nav-item"><a class="nav-link" href="#social">Social</a></li>
+                    <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li> <!-- ✅ new link -->
                 </ul>
             </div>
         </div>
@@ -601,10 +640,10 @@
                                 <strong>Anaswara:</strong> International Experience
                             </div>
                             <div class="comparison-item" style="animation-delay: 0.3s;">
-                                <strong>Sreerag S:</strong> School Leadership
+                                <strong>Sreerag B:</strong> School Leadership
                             </div>
                             <div class="comparison-item" style="animation-delay: 0.4s;">
-                                <strong>Sreerag B:</strong> Military Training
+                                <strong>Sreerag S:</strong> Military Training
                             </div>
                             <div class="comparison-item" style="animation-delay: 0.5s;">
                                 <strong>Devika:</strong> Dance Artistry
@@ -662,14 +701,19 @@
     </section>
 
     <!-- ✅ Egg Reveal Section -->
-    <section id="egg-reveal" class="section">
-        <div class="container">
-            <h2 class="section-title fade-in">🥚 The Egg Revealed</h2>
-            <!-- 👇 Replace with actual egg image -->
-            <img src="theegg.jpg" alt="Egg Member" class="egg-photo fade-in">
-            <p style="color: var(--lightning); margin-top: 1rem;">Hello, I am the mystery member, My Name is Mini.</p>
-        </div>
-    </section>
+<section id="egg-reveal" class="section">
+    <div class="container text-center">
+        <h2 class="section-title fade-in">🥚 The Egg Revealed</h2>
+        <!-- 👇 Replace with actual egg image -->
+        <img src="theegg.jpg" alt="Egg Member" class="egg-photo fade-in" style="max-width: 250px; border-radius: 20px; box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);">
+        
+        <p style="color: var(--lightning); margin-top: 1.5rem; font-size: 1.3rem;">
+            Hello, I am the mystery member, my name is 
+            <span style="font-size: 2rem; font-weight: 700; color: #FFD700;">Mini</span>.
+        </p>
+    </div>
+</section>
+
 
     <!-- Social Section -->
     <section id="social" class="section">
@@ -704,6 +748,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     
     <script>
+        // Display current points
+        document.querySelector('.points-section').textContent = 'Current Points: ' + 28882;
         // Scroll Animation
         const observerOptions = {
             threshold: 0.1,
