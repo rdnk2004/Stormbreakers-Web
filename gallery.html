@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Stormbreakers Gallery</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet"/>
+  <style>
+    body {
+      background-color: #0a0a0a;
+      color: white;
+      font-family: 'Exo 2', sans-serif;
+    }
+    .section-title {
+      color: #00e6ff;
+      text-align: center;
+      margin-top: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    .gallery-section {
+      padding: 2rem;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+    .gallery-grid img {
+      width: 100%;
+      border-radius: 10px;
+      border: 2px solid #0099cc;
+      transition: transform 0.3s ease;
+    }
+    .gallery-grid img:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <div class="container gallery-section">
+    <h2 class="section-title">📸 Day 1</h2>
+    <div class="gallery-grid mb-5">
+      <img src="day1-1.jpg" alt="Day 1" />
+      <img src="day1-2.jpg" alt="Day 1" />
+      <!-- Add more Day 1 images -->
+    </div>
+
+    <h2 class="section-title">📸 Day 2</h2>
+    <div class="gallery-grid mb-5">
+      <img src="day2-1.jpg" alt="Day 2" />
+      <img src="day2-2.jpg" alt="Day 2" />
+      <!-- Add more Day 2 images -->
+    </div>
+
+    <h2 class="section-title">📸 Day 3</h2>
+    <div class="gallery-grid">
+      <img src="day3-1.jpg" alt="Day 3" />
+      <img src="day3-2.jpg" alt="Day 3" />
+      <!-- Add more Day 3 images -->
+    </div>
+  </div>
+</body>
+</html>
